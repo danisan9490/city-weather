@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 
-const Form = () => {
-
-  const [busqueda, guardarBusqueda] = useState({
-    ciudad: '',
-    pais: ''
-  });
+const Form = ({ busqueda, guardarBusqueda, guardarConsultar }) => {
 
   const { ciudad, pais } = busqueda;
   const [error, guardarError] = useState(false);
@@ -24,6 +19,7 @@ const Form = () => {
       return;
     }
     guardarError(false);
+    guardarConsultar(true);
   }
 
   return (
