@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Error from './Error';
 
 const Form = ({ busqueda, guardarBusqueda, guardarConsultar }) => {
 
@@ -26,8 +27,7 @@ const Form = ({ busqueda, guardarBusqueda, guardarConsultar }) => {
     <form
       onSubmit={handleSubmit}
     >
-      {error ? <p className="red darken-4 error">All fields are required</p> : null}
-
+      {error ? <Error mensaje="All fields are required" /> : null}
       <div className="input-field col s12">
         <input
           type="text"
@@ -47,13 +47,13 @@ const Form = ({ busqueda, guardarBusqueda, guardarConsultar }) => {
           onChange={handleChange}
         >
           <option value="">-- Choose Country --</option>
-          <option value="US">Estados Unidos</option>
-          <option value="MX">México</option>
+          <option value="US">United States</option>
+          <option value="MX">Mexico</option>
           <option value="AR">Argentina</option>
           <option value="CO">Colombia</option>
           <option value="CR">Costa Rica</option>
-          <option value="ES">España</option>
-          <option value="PE">Perú</option>
+          <option value="ES">Spain</option>
+          <option value="PE">Peru</option>
         </select>
         <label htmlFor="pais">Country: </label>
       </div>

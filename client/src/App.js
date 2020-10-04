@@ -3,6 +3,7 @@ import './App.css';
 import Header from './components/Header';
 import Form from './components/Form';
 import Clima from './components/Clima';
+import Error from './components/Error';
 
 function App() {
 
@@ -12,6 +13,7 @@ function App() {
   });
   const [consultar, guardarConsultar] = useState(false);
   const [resultado, guardarResultado] = useState({});
+  const [error, guardarError] = useState(false);
 
   const { ciudad, pais } = busqueda;
 
@@ -26,19 +28,35 @@ function App() {
         console.log(resultado)
         guardarResultado(resultado);
         guardarConsultar(false);
+
+        if (resultado.cod === "404") {
+          guardarError(true);
+        } else {
+          guardarError(false);
+        }
       }
     }
     consultarAPI();
   }, [consultar]);
 
+  let componente;
+  if (error) {
+    componente = <Error mensaje="No Results" />
+  } else {
+    componente = <Clima
+      resultado={resultado}
+    />
+  }
+
   return (
     <div className="App">
-      <Header />
+      <Header
+        titulo='City Weather React App'
+      />
 
-
-      <div className="contenedor-form">
+      <div>
         <div className="container">
-          <div className="row">
+          <div className="row contenedor-form">
             <div className="col m6 s12">
               <Form
                 busqueda={busqueda}
@@ -46,10 +64,8 @@ function App() {
                 guardarConsultar={guardarConsultar}
               />
             </div>
-            <div className="col m6 s12">
-              <Clima
-                resultado={resultado}
-              />
+            <div className="col m6 s12 componente">
+              {componente}
             </div>
           </div>
         </div>
